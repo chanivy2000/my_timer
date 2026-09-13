@@ -1,17 +1,41 @@
-# my_stopwatch
+my_timer — Minimal Stopwatch & Study Companion
 
-A new Flutter project.
+A clean, powerful stopwatch built for focus. Whether you're timing a workout, 
+running laps, or studying for an exam, my_timer keeps things simple and 
+distraction-free.
 
-## Getting Started
+✦ GIANT LED-STYLE DISPLAY
+The huge outline numbers fill the screen, so you can see the time from across 
+the room. Perfect for gyms, classrooms, and track sessions.
 
-This project is a starting point for a Flutter application.
+✦ COUNTDOWN TIMER
+Set any duration with the built-in time picker. When time's up, the app 
+vibrates and plays a sound to alert you.
 
-A few resources to get you started if this is your first Flutter project:
+✦ LAP HISTORY (up to 10 laps)
+Record laps with one tap. See total time and lap time for each entry. 
+Reset clears everything for a fresh session.
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+✦ VOCABULARY / STUDY MODE
+Turn the timer into a study companion. Display flashcards that rotate 
+automatically every 10 seconds. Add your own words and tap to flip 
+between English and Chinese.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+✦ CUSTOM THEMES
+Unlock beautiful wood-texture color themes. Watch a short ad to unlock 
+a random theme from the collection.
+
+✦ MULTIPLE TIME FORMATS
+Switch between h:m, m:s, m:s.ms, and s.ms — whatever fits your activity.
+
+✦ CLEAN & FAST
+No accounts. No clutter. No unnecessary features. Just a stopwatch that 
+works exactly how you expect.
+
+Perfect for:
+• Athletes and runners
+• Students studying for exams
+• Anyone who needs a focus timer
+• Home workouts and cooking
+
+Built with Flutter. Available on Android.
