@@ -1,9 +1,6 @@
 import 'dart:async';
 import 'dart:math';
-import 'dart:ui' show FontFeature;
 import 'package:flutter/material.dart';
-import 'package:vibration/vibration.dart';
-import 'package:audioplayers/audioplayers.dart';
 
 void main() {
   runApp(const MyApp());
@@ -78,14 +75,13 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
 
   final List<LapRecord> _laps = [];
   int _lastLapMilliseconds = 0;
-  bool _unlimitedLaps = false;
+  final bool _unlimitedLaps = false;
 
   bool _showTranslationMode = false;
   bool _isEnglishShowing = true;
   int _currentWordIndex = 0;
   Timer? _wordTimer;
 
-  final AudioPlayer _audioPlayer = AudioPlayer();
 
   final List<WordPair> _words = [
     WordPair(id: '1', english: "Focus", chinese: "專注"),
@@ -115,7 +111,6 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
   void dispose() {
     _timer?.cancel();
     _wordTimer?.cancel();
-    _audioPlayer.dispose();
     super.dispose();
   }
 
@@ -123,14 +118,6 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
   Color get _strokeColor => _bgColor.computeLuminance() > 0.5 ? Colors.black : Colors.white;
 
   Future<void> _notifyFinish() async {
-    try {
-      if (await Vibration.hasVibrator() ?? false) {
-        Vibration.vibrate(pattern: [0, 500, 200, 500, 200, 800]);
-      }
-    } catch (_) {}
-    try {
-      await _audioPlayer.play(AssetSource('beep.mp3'));
-    } catch (_) {}
   }
 
   Future<bool> _showAdConfirm(String title, String content) async {
@@ -382,11 +369,11 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
                     child: Container(
                       width: double.infinity,
                       decoration: BoxDecoration(
-                        color: _strokeColor.withOpacity(0.05),
+                        color: _strokeColor.withValues(alpha: 0.05),
                         borderRadius: BorderRadius.circular(20),
-                        border: Border.all(color: _strokeColor.withOpacity(0.3), width: 3),
+                        border: Border.all(color: _strokeColor.withValues(alpha: 0.3), width: 3),
                         boxShadow: [
-                          BoxShadow(color: _strokeColor.withOpacity(0.1), blurRadius: 20, spreadRadius: 5),
+                          BoxShadow(color: _strokeColor.withValues(alpha: 0.1), blurRadius: 20, spreadRadius: 5),
                         ],
                       ),
                       child: Padding(
@@ -412,7 +399,7 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
                           child: Container(
                             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
                             decoration: BoxDecoration(
-                                color: _strokeColor.withOpacity(0.1),
+                                color: _strokeColor.withValues(alpha: 0.1),
                                 borderRadius: BorderRadius.circular(15)),
                             child: Column(
                               children: [
@@ -423,7 +410,7 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
                                 const SizedBox(height: 2),
                                 Text(
                                   _isEnglishShowing ? "Tap to see Chinese" : "Tap to see English",
-                                  style: TextStyle(color: _strokeColor.withOpacity(0.5), fontSize: 11),
+                                  style: TextStyle(color: _strokeColor.withValues(alpha: 0.5), fontSize: 11),
                                 ),
                               ],
                             ),
@@ -452,7 +439,7 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text("Last Lap",
-                                style: TextStyle(color: _strokeColor.withOpacity(0.5), fontSize: 11)),
+                                style: TextStyle(color: _strokeColor.withValues(alpha: 0.5), fontSize: 11)),
                             const SizedBox(height: 2),
                             Text(
                               _laps.last.lapTime,
@@ -470,7 +457,7 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
                         child: Container(
                           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                           decoration: BoxDecoration(
-                              color: _strokeColor.withOpacity(0.2),
+                              color: _strokeColor.withValues(alpha: 0.2),
                               borderRadius: BorderRadius.circular(30)),
                           child: Text("Reset", style: TextStyle(color: _strokeColor, fontSize: 16)),
                         ),
@@ -481,7 +468,7 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
                         child: Container(
                           padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 12),
                           decoration: BoxDecoration(
-                              color: Colors.blueAccent.withOpacity(0.8),
+                              color: Colors.blueAccent.withValues(alpha: 0.8),
                               borderRadius: BorderRadius.circular(30)),
                           child: const Text("Lap", style: TextStyle(color: Colors.white, fontSize: 16)),
                         ),
@@ -522,7 +509,7 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
                               const SizedBox(width: 16),
                               CircleAvatar(
                                 radius: 11,
-                                backgroundColor: _strokeColor.withOpacity(0.2),
+                                backgroundColor: _strokeColor.withValues(alpha: 0.2),
                                 child: Text(
                                   "${lap.index}",
                                   style: TextStyle(
@@ -559,13 +546,7 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
                     ),
                   ),
                 // ===== Ad banner =====
-                Container(
-                  height: 50,
-                  color: Colors.grey[900],
-                  child: const Center(
-                    child: Text("Ad Banner Here", style: TextStyle(color: Colors.white54, fontSize: 12)),
-                  ),
-                ),
+                
               ],
             ),
             // ===== Top toolbar =====
@@ -678,9 +659,9 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
             fontWeight: FontWeight.w500,
             fontFamily: 'monospace',
             fontFeatures: const [FontFeature.tabularFigures()],
-            color: _strokeColor.withOpacity(0.85),
+            color: _strokeColor.withValues(alpha: 0.85),
             letterSpacing: 4,
-            shadows: [Shadow(color: _strokeColor.withOpacity(0.6), blurRadius: 12)],
+            shadows: [Shadow(color: _strokeColor.withValues(alpha: 0.6), blurRadius: 12)],
           ),
         );
     }
@@ -879,7 +860,7 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
                       setModalState(() {});
                     },
                   );
-                }).toList(),
+                }),
               ],
             ),
           );
@@ -1031,7 +1012,7 @@ class _WordManagerScreenState extends State<WordManagerScreen> {
               child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
-                  color: _isUnlimited ? Colors.greenAccent.withOpacity(0.15) : Colors.white10,
+                  color: _isUnlimited ? Colors.greenAccent.withValues(alpha: 0.15) : Colors.white10,
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Text(
@@ -1072,7 +1053,7 @@ class _WordManagerScreenState extends State<WordManagerScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.menu_book_outlined, size: 80, color: Colors.white.withOpacity(0.15)),
+                        Icon(Icons.menu_book_outlined, size: 80, color: Colors.white.withValues(alpha: 0.15)),
                         const SizedBox(height: 16),
                         Text(
                           _words.isEmpty ? "No words yet" : "No results found",
@@ -1117,7 +1098,7 @@ class _WordManagerScreenState extends State<WordManagerScreen> {
                           decoration: BoxDecoration(
                             color: Colors.grey[900],
                             borderRadius: BorderRadius.circular(14),
-                            border: Border.all(color: Colors.white.withOpacity(0.06)),
+                            border: Border.all(color: Colors.white.withValues(alpha: 0.06)),
                           ),
                           child: Row(
                             children: [
@@ -1127,7 +1108,7 @@ class _WordManagerScreenState extends State<WordManagerScreen> {
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   border: Border.all(
-                                      color: Colors.white.withOpacity(0.25), width: 1.5),
+                                      color: Colors.white.withValues(alpha: 0.25), width: 1.5),
                                 ),
                                 child: Center(
                                   child: Text(
@@ -1162,7 +1143,7 @@ class _WordManagerScreenState extends State<WordManagerScreen> {
                               ),
                               Container(
                                 decoration: BoxDecoration(
-                                  color: Colors.redAccent.withOpacity(0.12),
+                                  color: Colors.redAccent.withValues(alpha: 0.12),
                                   shape: BoxShape.circle,
                                 ),
                                 child: IconButton(

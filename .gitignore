@@ -46,3 +46,25 @@ app.*.map.json
 
 # Widget Preview related
 .widget_preview/
+
+# FVM Version Cache
+.fvm/
+
+# Secrets - NEVER commit
+android/key.properties
+*.jks
+*.keystore
+
+# FVM
+.fvmrc
+
+# Broken/backup files
+*.broken
+*.bak
+
+# Build outputs
+android/build/
+android/java_pid*.hprof
+
+# Journey notes
+android/JOURNEY.md
